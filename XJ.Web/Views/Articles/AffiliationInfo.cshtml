@@ -1,0 +1,16 @@
+﻿@model List<Xj.CommonModel.ArticleAffiliationModel>
+<div class="FulltextWrapper">
+    <section xmlns="" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:meta="http://www.springer.com/app/meta" class="Section1 RenderAsSection1 Affiliations Affiliations--enhanced" id="Aff">
+        <h2 class="Heading js-ToggleCollapseSection">Authors’ Affiliations</h2>
+        <div class="js-CollapseSection">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="Affiliation" id="Aff@(Model[i].ViewId)">
+                    <span class="AffiliationNumber">(@(Model[i].ViewId))</span>
+                    <div class="AffiliationText">@(Model[i].AffiliationText)</div>
+                </div>
+
+            }
+        </div>
+    </section>
+</div>

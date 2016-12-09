@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>提交论文</title>
+    <script src="~/SWFUpload/handlers.js"></script>
+    <script src="~/SWFUpload/swfupload.js"></script>
+    <script type="text/javascript">
+    var swfu;
+    window.onload = function () {
+        swfu = new SWFUpload({
+            // Backend Settings
+            //upload_url: "upload.aspx",
+            @*upload_url: '@Url.Content("/ashx/upload.ashx")',*@
+            upload_url: '@Url.Action("UploadDoc")',
+            post_params: {
+                "ASPSESSID": "@Session.SessionID"
+            },
+
+            // File Upload Settings
+            file_size_limit: "2 MB",
+            file_types: "*.docx",
+            file_types_description: "word",
+            file_upload_limit: 0,    // Zero means unlimited
+
+            // Event Handler Settings - these functions as defined in Handlers.js
+            //  The handlers are not part of SWFUpload but are part of my website and control how
+            //  my website reacts to the SWFUpload events.
+            swfupload_preload_handler: preLoad,
+            swfupload_load_failed_handler: loadFailed,
+            file_queue_error_handler: fileQueueError,
+            file_dialog_complete_handler: fileDialogComplete,
+            upload_progress_handler: uploadProgress,
+            upload_error_handler: uploadError,
+            upload_success_handler: uploadSuccess,
+            upload_complete_handler: uploadComplete,
+
+            // Button settings
+            button_image_url: '@Url.Content("/SWFUpload/images/XPButtonNoText_160x22.png")',
+            button_placeholder_id: "spanButtonPlaceholder",
+            button_width: 160,
+            button_height: 22,
+            button_text: '<span class="button">请选择docx文件<span class="buttonSmall">(2 MB Max)</span></span>',
+            button_text_style: '.button { font-family: Helvetica, Arial, sans-serif; font-size: 14pt; } .buttonSmall { font-size: 10pt; }',
+            button_text_top_padding: 1,
+            button_text_left_padding: 5,
+
+            // Flash Settings
+            flash_url: '@Url.Content("/SWFUpload/swfupload.swf")',	// Relative to this file
+            flash9_url: '@Url.Content("/SWFUpload/swfupload_FP9.swf")',	// Relative to this file
+
+            //上传结果提示
+            custom_settings: {
+                upload_target: "divFileProgressContainer"
+            },
+
+            // Debug Settings
+            debug: false
+        });
+    }
+</script>
+</head>
+<body>
+
+    <!--www.biomedcentral.com/1471-2334/15/497#sec8-->
+    <!--1471-2334代表ISSN，-->
+    @*<p>标题:<input type="text" name="title" /></p>
+    <p>DOI:<input type="text" name="doi" /></p>
+    <p>杂志Id:<input type="text" name="journal_id" /></p>
+    <p>文章描述:<input type="text" name="dc.description" /></p>
+    <p>文章来源:<input type="text" name="dc.source" /></p>
+    <p>文章格式:<input type="text" name="dc.format" value="text/html" /></p>
+    <p>发行单位:<input type="text" name="dc.publisher" /></p>
+    <p>发行日期:<input type="text" name="dc.date"/></p>
+    <p>文章类型:<input type="text" name="dc.Type" value="OriginalPaper" /></p>
+    <p>文章语言:<input type="text" name="dc.language" value="En" /></p>
+    <p>文章版权:<input type="text" name="dc.copyright"/></p>
+    <p>文章权利Agent:<input type="text" name="dc.rightsAgent" /></p>
+    <p>ISSN:<input type="text" name="prism.issn" /></p><!--这个也可以用来作为一篇文章的标记-->
+    <p>发行刊物名:<input type="text" name="prism.publicationName" /></p>
+    <p>发行日期:<input type="text" name="prism.publicationDate" /></p>
+    <p>不知道:<input type="text" name="prism.volume" /></p>
+    <p>不知道:<input type="text" name="prism.number" /></p>
+    <p>不知道:<input type="text" name="prism.section" /></p>
+    <p>起始页面:<input type="text" name="prism.startingPage" /></p>
+    <p>copyright:<input type="text" name="prism.copyright" /></p>
+    <p>prism.rightsAgent:<input type="text" name="prism.rightsAgent" /></p>
+    <p>prism.url:<input type="text" name="prism.url" /></p>
+    <p>prism.url:<input type="text" name="prism.url" /></p>*@
+
+
+    <div id="content">
+
+        <div id="swfu_container" style="margin: 0px 10px;">
+            <div>
+                我是<span id="spanButtonPlaceholder"></span>爸爸
+            </div>
+            <div id="divFileProgressContainer" style="height: 75px;"></div>
+        </div>
+    </div>
+</body>
+</html>

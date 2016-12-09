@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SCIJournalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Affiliation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AffiliationName" Type="nvarchar" MaxLength="512" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArticleAffiliation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArticleId" Type="int" Nullable="false" />
+          <Property Name="AffiliationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArticleAuthor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArticleId" Type="int" Nullable="false" />
+          <Property Name="AuthorId" Type="int" Nullable="false" />
+          <Property Name="AuthorType" Type="int" Nullable="false" />
+          <Property Name="AffiliationIds" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="512" />
+          <Property Name="Recommend" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IId" Type="int" Nullable="false" />
+          <Property Name="DOI" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AName" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="PageIndex" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Html" Type="nvarchar(max)" />
+          <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
+          <Property Name="AcceptedDate" Type="datetime" Nullable="false" />
+          <Property Name="PublishedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorName" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JournalIssues">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JId" Type="int" Nullable="false" />
+          <Property Name="IName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Journals">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SId" Type="int" Nullable="false" />
+          <Property Name="JName" Type="nvarchar" MaxLength="512" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SName" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityContainer Name="SCIJournalModelStoreContainer">
+          <EntitySet Name="Affiliation" EntityType="Self.Affiliation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArticleAffiliation" EntityType="Self.ArticleAffiliation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArticleAuthor" EntityType="Self.ArticleAuthor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JournalIssues" EntityType="Self.JournalIssues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Journals" EntityType="Self.Journals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SCIJournalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Journal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SId" Type="Int32" Nullable="false" />
+          <Property Name="JName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SName" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="SCIJournalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Journals" EntityType="Self.Journal" />
+          <EntitySet Name="Subjects" EntityType="Self.Subject" />
+          <EntitySet Name="ArticleAffiliations" EntityType="SCIJournalModel.ArticleAffiliation" />
+          <EntitySet Name="Authors" EntityType="SCIJournalModel.Author" />
+          <EntitySet Name="Affiliations" EntityType="SCIJournalModel.Affiliation" />
+          <EntitySet Name="ArticleAuthors" EntityType="SCIJournalModel.ArticleAuthor" />
+          <EntitySet Name="JournalIssues" EntityType="SCIJournalModel.JournalIssue" />
+          <EntitySet Name="Articles" EntityType="SCIJournalModel.Article" />
+        </EntityContainer>
+        <EntityType Name="ArticleAffiliation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleId" Type="Int32" Nullable="false" />
+          <Property Name="AffiliationId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorName" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Affiliation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AffiliationName" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ArticleAuthor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleId" Type="Int32" Nullable="false" />
+          <Property Name="AuthorId" Type="Int32" Nullable="false" />
+          <Property Name="AuthorType" Type="Int32" Nullable="false" />
+          <Property Name="AffiliationIds" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Recommend" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="JournalIssue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JId" Type="Int32" Nullable="false" />
+          <Property Name="IName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IId" Type="Int32" Nullable="false" />
+          <Property Name="DOI" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AName" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="PageIndex" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Html" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AcceptedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PublishedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SCIJournalModelStoreContainer" CdmEntityContainer="SCIJournalEntities">
+          <EntitySetMapping Name="Journals">
+            <EntityTypeMapping TypeName="SCIJournalModel.Journal">
+              <MappingFragment StoreEntitySet="Journals">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SId" ColumnName="SId" />
+                <ScalarProperty Name="JName" ColumnName="JName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="SCIJournalModel.Subject">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SName" ColumnName="SName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticleAffiliations">
+            <EntityTypeMapping TypeName="SCIJournalModel.ArticleAffiliation">
+              <MappingFragment StoreEntitySet="ArticleAffiliation">
+                <ScalarProperty Name="AffiliationId" ColumnName="AffiliationId" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="SCIJournalModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Affiliations">
+            <EntityTypeMapping TypeName="SCIJournalModel.Affiliation">
+              <MappingFragment StoreEntitySet="Affiliation">
+                <ScalarProperty Name="AffiliationName" ColumnName="AffiliationName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArticleAuthors">
+            <EntityTypeMapping TypeName="SCIJournalModel.ArticleAuthor">
+              <MappingFragment StoreEntitySet="ArticleAuthor">
+                <ScalarProperty Name="Recommend" ColumnName="Recommend" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AffiliationIds" ColumnName="AffiliationIds" />
+                <ScalarProperty Name="AuthorType" ColumnName="AuthorType" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JournalIssues">
+            <EntityTypeMapping TypeName="SCIJournalModel.JournalIssue">
+              <MappingFragment StoreEntitySet="JournalIssues">
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+                <ScalarProperty Name="IName" ColumnName="IName" />
+                <ScalarProperty Name="JId" ColumnName="JId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="SCIJournalModel.Article">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+                <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="Html" ColumnName="Html" />
+                <ScalarProperty Name="PageIndex" ColumnName="PageIndex" />
+                <ScalarProperty Name="AName" ColumnName="AName" />
+                <ScalarProperty Name="DOI" ColumnName="DOI" />
+                <ScalarProperty Name="IId" ColumnName="IId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

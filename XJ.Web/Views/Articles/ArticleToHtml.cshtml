@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = Model.AName;
+}
+@model Xj.MSSQL.Model.Article
+
+@*<div id="membership-message-loader-desktop" class="placeholder" data-placeholder="/placeholder/v1/membership/message"></div>*@
+
+
+<main role="main">
+
+    <header class="journal-header" role="banner">
+        <div class="journal-header__inner">
+            <h2 class="journal-header__title journal-header__title--medium" id="journalTitle">
+                <a class="journal-header__link" href="/">@ViewBag.jname</a>
+            </h2>
+        </div>
+        <div class="navbar">
+            <div class="navbar__inner">
+
+
+
+                <nav class="navbar__nav">
+                    <h3 class="navbar__menu-toggle" data-toggle="collapse" data-target="journal-menu">
+                        <span class="sr-only">Main </span>menu
+                    </h3>
+                    <ul id="journal-menu" class="navbar__menu" id="siteNavigation" role="menu">
+
+                        <li class="navbar__item" role="menuitem">
+                            <a class="navbar__link" href='/'>Home</a>
+                        </li>
+
+                        <li class="navbar__item" role="menuitem">
+                            <a class="navbar__link" href='/about'>About</a>
+                        </li>
+
+                        <li class="navbar__item" role="menuitem">
+                            <a class="navbar__link is-active" href='/articles'>Articles</a>
+                        </li>
+
+                        <li class="navbar__item" role="menuitem">
+                            <a class="navbar__link" href='/submission-guidelines'>Submission Guidelines</a>
+                        </li>
+
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+        <div class="journal-identity journal-identity--networks-aqua">
+
+        </div>
+    </header>
+
+
+   
+    @Html.Raw(Model.Html)
+
+    </main>
+

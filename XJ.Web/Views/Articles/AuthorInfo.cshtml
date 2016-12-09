@@ -1,0 +1,71 @@
+﻿@model Xj.CommonModel.HeaderInfo
+<div xmlns="" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:meta="http://www.springer.com/app/meta" class="AuthorNames">
+    <ul class="u-listReset">
+        <li class="Author" data-jumpto="Aff">
+            
+            <span xmlns="http://www.w3.org/1999/xhtml" class="AuthorName">@Model.AAAList[0].AuthorName</span>
+            @foreach (var affiliationViewId in Model.AAAList[0].AffiliationViewIds)
+            {
+                <sup>
+                    <a href="#Aff@(affiliationViewId)" class="AffiliationID">@affiliationViewId</a>
+                </sup>
+            }
+            @if (Model.AAAList[0].Email != null)
+            {
+                <a href="@Model.AAAList[0].Email" class="EmailAuthor" title="Email author">
+                    <span class="ContactIcon" aria-hidden="true"></span>
+                    <span class="u-srOnly">Email author</span>
+                </a>
+            }
+        </li>
+
+        @for (int i = 1; i < Model.AAAList.Count; i++)
+        {
+            <text>,</text>
+            <li class="Author" data-jumpto="Aff">
+                <span xmlns="http://www.w3.org/1999/xhtml" class="AuthorName">@Model.AAAList[i].AuthorName</span>
+                @foreach (var affiliationViewId in Model.AAAList[i].AffiliationViewIds)
+                {
+                    <sup>
+                        <a href="#Aff@(affiliationViewId)" class="AffiliationID">@affiliationViewId</a>
+                    </sup>
+                }
+                @if (Model.AAAList[i].Email != null)
+                {
+                    <a href="@Model.AAAList[i].Email" class="EmailAuthor" title="Email author">
+                        <span class="ContactIcon" aria-hidden="true"></span>
+                        <span class="u-srOnly">Email author</span>
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+</div>
+
+<div xmlns="" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:meta="http://www.springer.com/app/meta" class="ArticleContextInformation">
+    <div class="ContextInformation">
+        <div class="ContextInformationJournalTitles">
+            <span class="ArticleCitation">
+                <span xmlns="http://www.w3.org/1999/xhtml" class="JournalTitle">@Model.Jname</span>
+                <span class="ArticleCitation_Year">@Model.Iyear</span>
+                <span class="ArticleCitation_Volume">
+                    <strong>@Model.Iname</strong>:@Model.Pageindex
+                </span>
+            </span>
+        </div>
+        <p class="ArticleDOI">
+            <strong>DOI: </strong>
+            @Model.Doi
+        </p>
+        <p class="Copyright">© The Auother(s);@Model.Iyear</p>
+    </div>
+</div>
+<div class="ArticleHistory">
+    <p class="History HistoryReceived">
+        <strong>Received: </strong>@Html.Raw(Model.ReceivedDate)
+    </p>
+    <p class="History HistoryAccepted">
+        <strong>Accepted: </strong>@Html.Raw(Model.AcceptedDate)
+    </p>
+    <p class="History HistoryOnlineDate"><strong>Published: </strong>@Html.Raw(Model.PublishedDate)</p>
+</div>
